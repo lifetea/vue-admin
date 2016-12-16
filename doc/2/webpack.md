@@ -22,3 +22,7 @@
       },
       devtool: '#eval-source-map'
     }
+   
+    
+#### gulp webpack运行效果
+![alt text](../res/gulp-webpack-dev-server.jpeg "运行效果")
