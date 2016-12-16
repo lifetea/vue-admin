@@ -46,7 +46,7 @@
         });
     });
     
-#### gulp webpack运行效果
+#### gulp webpack运行效果(关于黄色的提示我们在之后的优化会处理webpack打包体积过大的问题)
 ![alt text](../res/gulp-webpack.jpeg "运行效果")
 
 #### gulp webpack-dev-server 运行效果
