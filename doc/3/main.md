@@ -3,7 +3,7 @@
       entry: './src/js/main.js',
       //输出目录 和 文件设置
       output: {
-        path: __dirname + './dist',
+        path: __dirname + '/dist',
         filename: 'build.js'
       },
 
