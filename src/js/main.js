@@ -2,11 +2,11 @@
  * Created by lifetea on 16/9/20.
  */
 // app.js
-// import Vue              from 'vue'
+import Vue              from 'vue'
 
-var Vue                 =    require('Vue')
+// var Vue                 =    require('Vue')
 
-import App              from '../view/App.vue'
+import Main              from '../view/Main.vue'
 
 // import router           from './router'
 
@@ -53,9 +53,9 @@ V.debugUrl = 'adminWeb/'
 
 //初始化APP
 var app = new Vue({
-    el:"#app",
+    el:"#main",
     // router,
     // store,
-    render: h => h(App),
+    render: h => h(Main),
 })
 

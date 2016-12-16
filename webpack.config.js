@@ -5,16 +5,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 
 module.exports = {
-  entry: './src/js/app.js',
+  entry: './src/js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: 'dist/',
     filename: 'build.js'
   },
   externals: {
-      Vue:'Vue',
-      moment:'moment',
-      Vuex:'Vuex',
+      // Vue:'Vue',
+      // moment:'moment',
+      // Vuex:'Vuex',
   },
   // resolveLoader: {
   //   root: path.join(__dirname, 'node_modules'),
@@ -40,14 +40,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        query: {
-            presets: [ ["es2015", {"loose": true}] ],
-            plugins: [
-                "transform-es3-property-literals",
-                "transform-es3-member-expression-literals",
-                'transform-es2015-modules-commonjs',
-            ]
-        }
       },
       // {
       //   test: /\.(png|jpg|gif|svg)$/,
@@ -80,9 +72,9 @@ module.exports = {
   //     ]
   // },
   resolve:{
-      alias:{
-          moment : 'moment/min/moment.min.js'
-      }
+      // alias:{
+      //     moment : 'moment/min/moment.min.js'
+      // }
   },
   // plugins: [
   //   new ExtractTextPlugin("styles.css"),
@@ -101,19 +93,19 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
-  ])
-}
+// if (process.env.NODE_ENV === 'production') {
+//   module.exports.devtool = '#source-map'
+//   // http://vue-loader.vuejs.org/en/workflow/production.html
+//   module.exports.plugins = (module.exports.plugins || []).concat([
+//     new webpack.DefinePlugin({
+//       'process.env': {
+//         NODE_ENV: '"production"'
+//       }
+//     }),
+//     new webpack.optimize.UglifyJsPlugin({
+//       compress: {
+//         warnings: false
+//       }
+//     })
+//   ])
+// }
