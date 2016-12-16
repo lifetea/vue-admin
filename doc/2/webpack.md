@@ -1,4 +1,4 @@
-###webpack.config.js
+###在根目录创建 webpack.config.js
     module.exports = {
       entry: './src/js/main.js',
       output: {
@@ -24,5 +24,3 @@
     }
    
     
-#### gulp webpack运行效果
-![alt text](../res/gulp-webpack-dev-server.jpeg "运行效果")
