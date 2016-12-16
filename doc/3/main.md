@@ -1,3 +1,12 @@
+#### 在webpack.config.js中配置
+      //入口文件设置  
+      entry: './src/js/main.js',
+      //输出目录 和 文件设置
+      output: {
+        path: __dirname + './dist',
+        filename: 'build.js'
+      },
+
 #### 创建  根目录/index.html
     <!DOCTYPE html>
     <html lang="en">
@@ -7,6 +16,7 @@
     </head>
       <body>
         <div id="main"></div>
+        <!-- 这里使用dist中我们编译好的build.js -->
         <script src="./dist/build.js"></script>
       </body>
     </html>
