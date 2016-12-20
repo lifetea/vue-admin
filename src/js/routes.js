@@ -4,15 +4,22 @@
  * github: https://github.com/lifetea
  */
 
+//lazy load
+const lazyLoading = (name, index = false) => () => System.import(`../view/${name}${index ? '/index' : ''}.vue`)
+
 //布局
-import Layout       from '../view/Layout.vue'
 
 
 const routes = [
-    { path: '', component: Layout,
+    { path: '', component: lazyLoading('Layout'),
         children: [
 
         ]
+    },
+    {
+        path: '/login',
+        name:'login',
+        component: lazyLoading('Login')
     },
 ];
 

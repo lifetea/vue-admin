@@ -10,8 +10,6 @@ Vue.use(VueRouter);
 import routes       from  './routes'
 
 
-
-
 //定义路由
 var router = new VueRouter({
     mode: 'hash',
