@@ -8,6 +8,8 @@
 
     如果这个教程对您有所帮助  给一个star吧  - .. -
 
+#### 消息中心
+![alt text](./doc/res/notice.jpg "运行效果")
 
 ##目录
 * 1.[第一步搭建环境](#Install)
@@ -27,10 +29,10 @@
 * 4.[第四步搭建路由](#Route)
     * [Vue全局化](./doc/4/webpack.md)
     * [创建配置路由](./doc/4/router.md)
-    * [配置gulp](./doc/4/gulp.md)    
 * 5.[第五步登录页面](#Login)
-    * [创建登录页面](./doc/5/webpack.md)
-    * [路由配置](./doc/5/gulp.md)    
+    * [登录页面](./doc/5/login.md)
+    * [惰性加载](./doc/5/gulp.md)
+    * [更新配置](./doc/5/gulp.md)    
     * [登录授权](./doc/5/gulp.md)
     * [退出登录](./doc/5/gulp.md)
 * 6.[第六步页面布局](#Layout)
