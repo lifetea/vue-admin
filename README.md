@@ -9,7 +9,7 @@
     如果这个教程对您有所帮助  给一个star吧  - .. -
 
 #### 消息中心
-![alt text](http://cdn.2mmr.com/vue-admin/layout.jpg "运行效果")
+![alt text]( http://cdn.2mmr.com/vue-admin/layout.jpg "运行效果")
 
 ##目录
 * 1.[第一步搭建环境](#Install)
