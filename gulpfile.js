@@ -44,3 +44,21 @@ gulp.task("webpack:build-dev", function(callback) {
 //         gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
 //     });
 // });
+
+let qiniu = require('gulp-qiniu')
+//marked vue-admin as root
+gulp.task("qi-niu",function () {
+    gulp.src('./doc/res/**')
+        .pipe(qiniu({
+            accessKey: "B2OKlkXQB04RFcUNvVBiXZUeWmEOfBOFN26tGC2f",
+            secretKey: "gbifYUdYUN5aanKHhkcEDrMfrf3GNkKWjxJknjSE",
+            bucket: "2mmr",
+            private: false
+        }, {
+            dir: 'vue-admin/',
+            versioning: false,
+            // versionFile: './cdn.json',
+            concurrent: 10
+        }))
+})
+
