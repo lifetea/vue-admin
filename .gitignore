@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+.gitignore
 .idea/
+package.json
 node_modules/
-.DS_Store
-IMG_1247.PNG
 dist/
+doc/res/

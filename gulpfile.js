@@ -1,9 +1,9 @@
-var gulp = require('gulp')
-var gutil = require("gulp-util");
-var path  = require('path');
+var gulp    = require('gulp')
+var gutil   = require("gulp-util");
+var path    = require('path');
 
 // webpack dev server
-var webpackDevServer = require('webpack-dev-server');
+// var webpackDevServer = require('webpack-dev-server');
 // webpack
 var webpack = require('webpack')
 // webpack 配置
@@ -27,20 +27,20 @@ gulp.task("webpack:build-dev", function(callback) {
     });
 });
 
-// 修改配置
-var serverConf = Object.create(webpackConf);
-serverConf.devtool = "eval";
-
-gulp.task("webpack-dev-server", function(callback) {
-    // 启动server
-    new webpackDevServer(webpack(serverConf), {
-        publicPath: "/" + serverConf.output.publicPath,
-        stats: {
-            colors: true
-        },
-        hot:true,
-    }).listen(8080, "localhost", function(err) {
-        if(err) throw new gutil.PluginError("webpack-dev-server", err);
-        gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
-    });
-});
+// // 修改配置
+// var serverConf = Object.create(webpackConf);
+// serverConf.devtool = "eval";
+//
+// gulp.task("webpack-dev-server", function(callback) {
+//     // 启动server
+//     new webpackDevServer(webpack(serverConf), {
+//         publicPath: "/" + serverConf.output.publicPath,
+//         stats: {
+//             colors: true
+//         },
+//         hot:true,
+//     }).listen(8080, "localhost", function(err) {
+//         if(err) throw new gutil.PluginError("webpack-dev-server", err);
+//         gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+//     });
+// });

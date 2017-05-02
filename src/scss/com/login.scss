@@ -1,0 +1,52 @@
+@import "../conf/variable.scss";
+//@import "../lib/element.scss";
+.login-wrap{
+  background: $theme-login-wrap-background;
+}
+.plugins-tips{
+  background: #eef1f6;
+}
+.plugins-tips a{
+  color: #20a0ff;
+}
+.el-upload--text em {
+  color: #20a0ff;
+}
+.pure-button{
+  background: #20a0ff;
+}
+
+.login-wrap{
+  width:100%;
+  height:100%;
+  padding-top: 8rem;
+  box-sizing: border-box;
+}
+.ms-title{
+  width:100%;
+  text-align: center;
+  font-size: 2.4rem;
+  padding-bottom: 2rem;
+  color: #fff;
+}
+.ms-login{
+  margin: 0 auto;
+  width:300px;
+  padding:30px 30px 20px;
+  border-radius: 5px;
+  background: #fff;
+  .code{
+    height: 36px;
+    text-align: right;
+    img{
+      height: 100%;
+    }
+  }
+}
+.login-btn{
+  text-align: center;
+}
+.login-btn button{
+  width:100%;
+  height:36px;
+}

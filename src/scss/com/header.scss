@@ -1,0 +1,45 @@
+@import "../conf/variable.scss";
+
+.header-wrp{
+  background-color: $theme-header-wrap-background;
+  position: relative;
+  width: 100%;
+  height: 46px;
+  overflow: hidden;
+  line-height: 46px;
+  font-size: 1rem;
+  .logo{
+    vertical-align: middle;
+    float: left;
+    width:250px;
+    text-align: center;
+    line-height: 46px;
+  }
+  color: $theme-header-wrap-color ;
+}
+
+.user-info {
+  float: right;
+  padding-right: 50px;
+  font-size: 16px;
+  color: #fff;
+}
+.user-info .el-dropdown-link{
+  position: relative;
+  display: inline-block;
+  padding-left: 50px;
+  color: #fff;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.user-info .user-logo{
+  position: absolute;
+  left:0;
+  top:15px;
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+}
+.el-dropdown-menu__item{
+  text-align: center;
+}

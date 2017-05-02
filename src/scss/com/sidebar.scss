@@ -1,0 +1,12 @@
+@import "../conf/variable.scss";
+.sidebar-wrp{
+  background: $theme-sidebar-wrap-background;
+  .el-menu-item, .el-submenu__title{
+    font-size: 1rem;
+    height: 46px;
+    line-height: 46px;
+  }
+  & > ul{
+    height: 100%;
+  }
+}

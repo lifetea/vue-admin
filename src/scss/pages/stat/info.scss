@@ -1,0 +1,73 @@
+@import "src/scss/conf/variable.scss";
+@import "src/scss/conf/mixin.scss";
+.stat-loan{
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  .stat-box{
+    padding-top: .4rem;
+  }
+  .item-box{
+    display: inline-block;
+    padding-left: 1rem;
+  }
+  .search-box{
+    padding-top: 1rem;
+    .el-input{
+      width: 160px;
+      &.time{
+        width: 200px;
+      }
+      &.money{
+        width: 100px;
+      }
+    }
+    .lang{
+      .el-input{
+        width: 200px;
+      }
+    }
+    .short{
+      .el-input{
+        width: 80px;
+      }
+    }
+    .middle{
+      .el-input{
+        width: 110px;
+      }
+    }
+    .long{
+      &.el-date-editor{
+        width: 330px;
+      }
+    }
+    label{
+      font-size: 1rem;
+    }
+    .el-form-item{
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+  }
+  .result-box{
+    padding-bottom: 1rem;
+    @include clearfix;
+    a{
+      padding: 0 .6rem;
+      color: black;
+    }
+  }
+  .footer-box{
+    padding-top: 1rem;
+    @include clearfix;
+  }
+  .table{
+    cursor: move;
+  }
+
+
+  .el-table{
+    font-size: $size-7;
+  }
+}

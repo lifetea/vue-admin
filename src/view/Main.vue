@@ -1,26 +1,28 @@
 <template>
     <div id="main">
-        <!--<nav-bar :show="true"></nav-bar>-->
         <router-view></router-view>
         <!--<footer-bar></footer-bar>-->
     </div>
 </template>
 
-<style>
-
+<style lang="scss">
+/*@import "../scss/rest.scss";*/
+    @import "../scss/main.scss";
 </style>
 
 <script>
-//    import navBar    from  './Navbar.vue';
 //    import footerBar from  './FooterBar.vue';
 
     export  default{
-        replace: true,
+        replace:true,
         name:"Main",
         data() {
             return {
                 msg: 'Hello Vue!'
             }
+        },
+        methods:{
+
         },
         components:{
 //            'nav-bar'    : navBar,
