@@ -11,7 +11,7 @@
 #### 消息中心
 ![alt text]( http://cdn.2mmr.com/vue-admin/layout.jpg "运行效果")
 
-##目录
+## 目录
 * 1.[第一步搭建环境](#Install)
     * [安装vue环境](./doc/1/vue.md)
     * [安装webpack环境](./doc/1/webpack.md)
