@@ -2,30 +2,40 @@
     <div class="login-wrap">
         <div class="ms-title">某系统</div>
         <div class="ms-login">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+            <el-form :model="user" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="帐号"></el-input>
+                    <el-input v-model="user.username" placeholder="帐号"></el-input>
                 </el-form-item>
+
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    <el-input type="password" placeholder="密码" v-model="user.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-col :span="12">
+                    <el-col :span="14">
+                        <el-input v-model="user.mobile" placeholder="手机"></el-input>
+                    </el-col>
+                    <el-col :span="8" :offset="2">
                         <el-input type="password" placeholder="验证码"></el-input>
                     </el-col>
-                    <el-col :span="12">
-                        <div class="code">
-                            <img height="36" alt="" src="https://passport.netease.im/czc/cregcp?&amp;t=1489112941457">
-                        </div>
-                    </el-col>
+                    <!--<el-col :span="12">-->
+                        <!--<div class="code">-->
+                            <!--<img height="36" alt="" src="https://passport.netease.im/czc/cregcp?&amp;t=1489112941457">-->
+                        <!--</div>-->
+                    <!--</el-col>-->
                 </el-form-item>
                 <!--<el-form-item>-->
                     <!--<el-input type="password" placeholder="手机验证码"></el-input>-->
                 <!--</el-form-item>-->
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button v-show="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button v-show="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                    <el-button v-show="action == 'find'" type="primary" @click="submitForm('ruleForm')">找回</el-button>
                 </div>
-                <p style="font-size:12px;line-height:30px;color:#999;">Tips : 忘记密码联系管理员</p>
+                <p class="link-box">
+                    <a class="pull-left" @click="doSwitch('register')" href="javascript:void(0)">注册</a>
+                    <a class="pull-right" @click="doSwitch('find')" href="javascript:void(0)">找回密码</a>
+                    <!--<a class="pull-right" @click="switch('find')" href="javascript:void(0)">找回密码</a>-->
+                </p>
             </el-form>
         </div>
     </div>
@@ -36,8 +46,9 @@
     export default {
         data: function(){
             return {
-                ruleForm: {
+                user: {
                     username: '',
+                    mobile:'',
                     password: ''
                 },
                 rules: {
@@ -47,7 +58,8 @@
                     password: [
                         { required: true, message: '请输入密码', trigger: 'blur' }
                     ]
-                }
+                },
+                action:'register'
             }
         },
         methods: {
@@ -55,14 +67,46 @@
                 const self = this;
                 self.$refs[formName].validate((valid) => {
                     if (valid) {
-                        auth.login();
+                        switch (self.action){
+                            case 'login':
+                                self.doLogin()
+                            case 'register':
+                                self.doRegister()
+                            default:
+                                self.doFindBack()
+                        }
+//                        auth.login();
                         //localStorage.setItem('ms_username',self.ruleForm.username);
-                        self.$router.push('/index');
+                        //self.$router.push('/index');
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
+            },
+            doSwitch(val){
+                this.action = val
+            },
+            doLogin(){
+
+            },
+            doRegister(){
+                let that        = this
+                let url         = Vue.debugUrl + '/stat/outcomePlan/search'
+                var reqData     = { }
+
+                Object.assign(reqData,that.user)
+
+                that.$http.get(url,reqData).then(function (res) {
+                    if(res.body.msg == "OK") {
+                        let data            = res.body.data
+                        Object.assign(that,data)
+                    }
+                });
+                console.log("登录")
+            },
+            doFindBack(){
+
             }
         }
     }

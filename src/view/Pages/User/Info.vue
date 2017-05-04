@@ -1,21 +1,33 @@
 <template>
-  <div class="bg_w">
-    <div class="kszc">
-      <form action="control.php" method="post"><input type="hidden" name="act" value="modinfo">
+  <div class="user-info bg_w">
+    <div class="wrap">
+      <el-form :model="user" label-width="100px" class="demo-ruleForm">
+               <!--:rules="rules" -->
+               <!--ref="ruleForm" -->
+        <el-form-item label="帐号">
+          <p>{{user.account}}</p>
+        </el-form-item>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="user.name"></el-input>
+        </el-form-item>
+        <el-form-item label="级别">
+          <p>{{user.level}}</p>
+        </el-form-item>
+        <el-form-item label="注册日期">
+          <p>{{user.createdTime}}</p>
+        </el-form-item>
+        <el-form-item label="开通日期">
+          <p>{{user.createdTime}}</p>
+        </el-form-item>
+        <el-form-item label="推荐人">
+          <p>{{user.activeTime}}</p>
+        </el-form-item>
+
+      </el-form>
+      <form action="control.php" method="post">
         <div class="grzl">
           <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tbody>
-
-            <tr>
-              <td width="30%" align="right">账号：</td>
-              <td align="left">cbxsx74102</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">姓名：</td>
-              <td>
-                <Input v-model="user.name" placeholder="default size"></Input>
-              </td>
-            </tr>
 
             <tr>
               <td width="25%" align="right">级别：</td>
@@ -36,7 +48,8 @@
             </tr>
             <input type="hidden" name="ptd[]" value="rgmobile">                        <tr>
               <td width="25%" align="right">手机号码：</td>
-              <td><input type="text" name="rgmobile" value="" class="reginput" maxlength="20">
+              <td>
+                <Input type="text" name="rgmobile" value="" class="reginput" maxlength="20"></Input>
               </td>
             </tr>
             <input type="hidden" name="ptd[]" value="rgaddress">                        <tr>
@@ -83,7 +96,12 @@
           doctorNum: 0,
         },
         user:{
-            name:'徐士学'
+            name:'徐士学',
+            account:"cbxsx74102",
+            level:'普通会员',
+            createdTime:'2017-02-25',
+            activeTime:'2017-02-25',
+            referrer:''
         }
       }
     },
