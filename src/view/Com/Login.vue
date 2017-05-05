@@ -3,8 +3,8 @@
         <div class="ms-title">某系统</div>
         <div class="ms-login">
             <el-form :model="user" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-                <el-form-item prop="username">
-                    <el-input v-model="user.username" placeholder="帐号"></el-input>
+                <el-form-item prop="account">
+                    <el-input v-model="user.account" placeholder="帐号"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="password">
@@ -27,12 +27,13 @@
                     <!--<el-input type="password" placeholder="手机验证码"></el-input>-->
                 <!--</el-form-item>-->
                 <div class="login-btn">
-                    <el-button v-show="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                    <el-button v-show="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
-                    <el-button v-show="action == 'find'" type="primary" @click="submitForm('ruleForm')">找回</el-button>
+                    <el-button v-if="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <el-button v-if="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                    <el-button v-if="action == 'find'" type="primary" @click="submitForm('ruleForm')">找回</el-button>
                 </div>
                 <p class="link-box">
-                    <a class="pull-left" @click="doSwitch('register')" href="javascript:void(0)">注册</a>
+                    <a v-show="action != 'login'" class="pull-left" @click="doSwitch('login')" href="javascript:void(0)">登录</a>
+                    <a v-show="action != 'register'" class="pull-left" @click="doSwitch('register')" href="javascript:void(0)">注册</a>
                     <a class="pull-right" @click="doSwitch('find')" href="javascript:void(0)">找回密码</a>
                     <!--<a class="pull-right" @click="switch('find')" href="javascript:void(0)">找回密码</a>-->
                 </p>
@@ -47,12 +48,12 @@
         data: function(){
             return {
                 user: {
-                    username: '',
+                    account: '',
                     mobile:'',
                     password: ''
                 },
                 rules: {
-                    username: [
+                    account: [
                         { required: true, message: '请输入帐号', trigger: 'blur' }
                     ],
                     password: [
@@ -88,22 +89,35 @@
                 this.action = val
             },
             doLogin(){
-
-            },
-            doRegister(){
                 let that        = this
-                let url         = Vue.debugUrl + '/stat/outcomePlan/search'
+                let url         = Vue.debugUrl + '/user/login'
                 var reqData     = { }
 
                 Object.assign(reqData,that.user)
-
-                that.$http.get(url,reqData).then(function (res) {
-                    if(res.body.msg == "OK") {
-                        let data            = res.body.data
-                        Object.assign(that,data)
+                that.$http.post(url,reqData).then(function (res) {
+                    if(res.body.msg == "ok") {
+                        auth.login();
+                        console.log(res)
+                        console.log("登录成功")
+                        that.$router.replace('/index');
                     }
                 });
-                console.log("登录")
+            },
+            doRegister(){
+                let that        = this
+                let url         = Vue.debugUrl + '/user/register'
+                var reqData     = { }
+
+                Object.assign(reqData,that.user)
+                that.$http.post(url,reqData).then(function (res) {
+                    if(res.body.msg == "ok") {
+                        auth.login();
+                        console.log(res)
+                        console.log("注册成功")
+                        that.$router.replace('/index');
+                    }
+                });
+
             },
             doFindBack(){
 
