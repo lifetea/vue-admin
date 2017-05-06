@@ -8,9 +8,20 @@ Vue.filter('dateFormat', function (value) {
     return res
 })
 
-
 Vue.filter('dateTimeFormat', function (value) {
-    let res = value ? moment(value).format("YYYY-MM-DD HH:mm:ss") : '无';
+    let res = value ? moment(value).format("YYYY-MM-DD hh:mm:ss") : '无';
+    return res
+})
+
+
+// 会员等级 0-普通会员  1-初级服务中心 2-高级服务中心
+
+Vue.filter('levelFormat', function (value) {
+    let res = '普通会员'
+    if(value == 1)
+        res = '初级会员'
+    if(value == 2)
+        res = '高级会员'
     return res
 })
 

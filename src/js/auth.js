@@ -3,6 +3,7 @@
 export default {
     login () {
         localStorage.token = true;
+
         // cb = arguments[arguments.length - 1]
         // if (localStorage.token) {
         //     if (cb) cb(true)
@@ -20,13 +21,21 @@ export default {
         //     }
         // })
     },
-
+    setUser(user){
+            localStorage.user = user? JSON.stringify(user): null
+    },
+    getUser(){
+        let user = localStorage.user ? JSON.parse(localStorage.user) : {}
+        console.log(user)
+        return user
+    },
     getToken () {
         return localStorage.token
     },
 
     logout (cb) {
         delete localStorage.token
+        delete localStorage.user
         if (cb) cb()
         this.onChange(false)
     },

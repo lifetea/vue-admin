@@ -1,69 +1,54 @@
 <template>
   <div class="bg_w">
-    <div class="kszc">
-      <form action="control.php" method="post"><input type="hidden" name="act" value="modinfo">
-        <div class="grzl">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tbody>
+    <el-button type="primary"  class="pull-right" @click.native="bankVisible = true" icon="plus">添加</el-button>
+    <el-table
+            :data="tableData"
+            style="width: 100%">
+      <el-table-column
+              prop="date"
+              label="日期"
+              width="180">
+      </el-table-column>
+      <el-table-column
+              prop="name"
+              label="姓名"
+              width="180">
+      </el-table-column>
+      <el-table-column
+              prop="address"
+              label="地址">
+      </el-table-column>
+    </el-table>
 
-            <tr>
-              <td width="30%" align="right">账号：</td>
-              <td align="left">cbxsx74102</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">姓名：</td>
-              <td>
-                <Input v-model="user.name" placeholder="default size"></Input>
-              </td>
-            </tr>
-
-            <tr>
-              <td width="25%" align="right">级别：</td>
-              <td>普通会员</td>
-            </tr>
-
-            <tr>
-              <td width="25%" align="right">注册日期：</td>
-              <td>2017-02-25</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">开通日期：</td>
-              <td>2017-02-25</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">推荐人：</td>
-              <td>cbxsx7410</td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgmobile">                        <tr>
-              <td width="25%" align="right">手机号码：</td>
-              <td><input type="text" name="rgmobile" value="" class="reginput" maxlength="20">
-              </td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgaddress">                        <tr>
-              <td width="25%" align="right">收货地址：</td>
-              <td><input type="text" name="rgaddress" value="" class="reginput" maxlength="20">
-              </td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgfax">                        <tr>
-              <td width="25%" align="right">车牌号码：</td>
-              <td><input type="text" name="rgfax" value="" class="reginput" maxlength="20">
-              </td>
-            </tr>
-
-            <tr>
-              <td width="25%" align="right" style="height:50px;line-height:50px"></td>
-              <td style="height:50px;line-height:50px" align="left"><input type="submit" value="修改" class="reg_button" style="margin:0px;"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
-    </div>
+    <el-dialog title="添加银行卡" :visible.sync="bankVisible" size="tiny" label-width="100px">
+      <el-form :model="bank">
+        <el-form-item label="银行名称">
+          <el-select v-model="bank.bankName" placeholder="请选择银行">
+            <el-option  label="中国工商银行" value="中国工商银行"></el-option>
+            <el-option  label="中国农业银行" value="中国农业银行"></el-option>
+            <el-option  label="中国建设银行" value="中国建设银行"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item lable="银行卡号">
+          <el-input v-model="bank.cardNo" placeholder="请输入银行卡号"></el-input>
+        </el-form-item>
+        <el-form-item lable="开户行">
+          <el-input v-model="bank.nickName" placeholder="请输入开户行"></el-input>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input type="textarea" v-model="bank.remark" placeholder="备注"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native="bankVisible = false">取 消</el-button>
+        <el-button type="primary" @click.native="doAdd">添 加</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-//Message功能-提示框，本网页中为黄色警告框。[刘]
-//  import Message from 'vue-bulma-message'
+  import util from "src/js/util"
+  import auth from "src/js/auth"
   export default {
       name:'Index',
   //注册组件：Message方便使用
@@ -72,21 +57,73 @@
     },
     data () {
       return {
-        data: [300, 50, 100,50],
-        totalDoctorCount:0,
-        balanceDate:1,
-        //如果没有读取到数据，直接默认为0[刘]
-        Num:{
-          userNum: 0,
-          newUserNum: 0,
-          newDoctorNum: 0,
-          doctorNum: 0,
-        },
-        user:{
-            name:'徐士学'
-        }
+          tableData: [{
+              date: '2016-05-02',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+              date: '2016-05-04',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+              date: '2016-05-03',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1516 弄'
+          }],
+          list:[],
+          bank:{
+            bankName:null,
+          },
+          bankVisible:false,
       }
     },
+    methods:{
+          showDialog(){
+              this.bankVisible = true
+              console.log("hh",this.bankVisible)
+          },
+          doAdd(){
+              let that        = this
+              let url         = Vue.debugUrl + '/bank/add'
+
+              var reqData     = {
+                  userId:auth.getUser().id
+              }
+              Object.assign(reqData,that.bank)
+
+              util.dataClear(reqData)
+
+
+
+              that.$http.post(url,reqData).then(function (res) {
+                  if(res.body.msg == "ok") {
+                      this.$notify({
+                          title: '成功',
+                          message: '添加成功',
+                          type: 'success'
+                      });
+                      that.bankVisible = false
+                  }
+              });
+          }
+    },
+      created:function () {
+        let that        = this
+        let url         = Vue.debugUrl + '/bank/list'
+
+        var reqData     = { }
+
+        that.$http.post(url,reqData).then(function (res) {
+            if(res.body.msg == "ok") {
+                let data            = res.body.data
+                Object.assign(that,data)
+            }
+        });
+    }
 //    computed: {
 //        monthClosingHint:function () {
 //            let balanceDate = this.balanceDate
@@ -119,5 +156,5 @@
 </script>
 
 <style lang="scss">
-    @import "src/scss/pages/user/info.scss";
+    @import "src/scss/pages/user/bank.scss";
 </style>

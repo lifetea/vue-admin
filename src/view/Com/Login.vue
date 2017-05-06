@@ -17,15 +17,8 @@
                     <el-col :span="8" :offset="2">
                         <el-input type="password" placeholder="验证码"></el-input>
                     </el-col>
-                    <!--<el-col :span="12">-->
-                        <!--<div class="code">-->
-                            <!--<img height="36" alt="" src="https://passport.netease.im/czc/cregcp?&amp;t=1489112941457">-->
-                        <!--</div>-->
-                    <!--</el-col>-->
                 </el-form-item>
-                <!--<el-form-item>-->
-                    <!--<el-input type="password" placeholder="手机验证码"></el-input>-->
-                <!--</el-form-item>-->
+
                 <div class="login-btn">
                     <el-button v-if="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
                     <el-button v-if="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
@@ -43,7 +36,8 @@
 </template>
 
 <script>
-    import auth from '../../js/auth.js'
+    import auth from 'src/js/auth.js'
+    import util from 'src/js/util'
     export default {
         data: function(){
             return {
@@ -71,10 +65,13 @@
                         switch (self.action){
                             case 'login':
                                 self.doLogin()
+                                break
                             case 'register':
                                 self.doRegister()
+                                break
                             default:
                                 self.doFindBack()
+                                break
                         }
 //                        auth.login();
                         //localStorage.setItem('ms_username',self.ruleForm.username);
@@ -94,9 +91,13 @@
                 var reqData     = { }
 
                 Object.assign(reqData,that.user)
+
+                util.dataClear(reqData)
+
                 that.$http.post(url,reqData).then(function (res) {
                     if(res.body.msg == "ok") {
                         auth.login();
+                        auth.setUser(res.body.data)
                         console.log(res)
                         console.log("登录成功")
                         that.$router.replace('/index');
@@ -106,13 +107,16 @@
             doRegister(){
                 let that        = this
                 let url         = Vue.debugUrl + '/user/register'
-                var reqData     = { }
-
+                var reqData     = {}
                 Object.assign(reqData,that.user)
+
+                util.dataClear(reqData)
+
                 that.$http.post(url,reqData).then(function (res) {
                     if(res.body.msg == "ok") {
                         auth.login();
                         console.log(res)
+                        auth.setUser(res.body.data)
                         console.log("注册成功")
                         that.$router.replace('/index');
                     }

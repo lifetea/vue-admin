@@ -4,79 +4,61 @@
       <el-form :model="user" label-width="100px" class="demo-ruleForm">
                <!--:rules="rules" -->
                <!--ref="ruleForm" -->
-        <el-form-item label="帐号">
-          <p>{{user.account}}</p>
+        <el-form-item label-width="0">
+          <el-col :span="11">
+            <el-form-item label="帐号">
+              <p>{{user.account}}</p>
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="11">
+            <el-form-item label="级别">
+              <p>{{user.level | levelFormat}}</p>
+            </el-form-item>
+          </el-col>
         </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="user.name"></el-input>
+        <el-form-item label-width="0">
+          <el-col :span="11">
+            <el-form-item label="注册日期">
+              <p>{{user.createTime | dateFormat}}</p>
+            </el-form-item>
+          </el-col>
+          <el-col class="line" :span="2">-</el-col>
+          <el-col :span="11">
+            <el-form-item label="开通日期">
+              <p>{{user.activateTime | dateFormat}}</p>
+            </el-form-item>
+          </el-col>
         </el-form-item>
-        <el-form-item label="级别">
-          <p>{{user.level}}</p>
-        </el-form-item>
-        <el-form-item label="注册日期">
-          <p>{{user.createdTime}}</p>
-        </el-form-item>
-        <el-form-item label="开通日期">
-          <p>{{user.createdTime}}</p>
-        </el-form-item>
+
         <el-form-item label="推荐人">
           <p>{{user.activeTime}}</p>
         </el-form-item>
-
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="user.name" placeholder="请输入姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号码">
+          <el-input v-model="user.mobile" placeholder="请输入手机号码"></el-input>
+          <p>{{user.activeTime}}</p>
+        </el-form-item>
+        <el-form-item label="车牌号码">
+          <el-input v-model="user.carNo" placeholder="请输入车牌号码"></el-input>
+          <p>{{user.activeTime}}</p>
+        </el-form-item>
+        <el-form-item label="收获地址">
+          <el-input type="textarea" v-model="user.address" placeholder="请输入收获地址"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click.native="doSave">提交</el-button>
+          <!--<el-button @click="resetForm('ruleForm2')">重置</el-button>-->
+        </el-form-item>
       </el-form>
-      <form action="control.php" method="post">
-        <div class="grzl">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tbody>
-
-            <tr>
-              <td width="25%" align="right">级别：</td>
-              <td>普通会员</td>
-            </tr>
-
-            <tr>
-              <td width="25%" align="right">注册日期：</td>
-              <td>2017-02-25</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">开通日期：</td>
-              <td>2017-02-25</td>
-            </tr>
-            <tr>
-              <td width="25%" align="right">推荐人：</td>
-              <td>cbxsx7410</td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgmobile">                        <tr>
-              <td width="25%" align="right">手机号码：</td>
-              <td>
-                <Input type="text" name="rgmobile" value="" class="reginput" maxlength="20"></Input>
-              </td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgaddress">                        <tr>
-              <td width="25%" align="right">收货地址：</td>
-              <td><input type="text" name="rgaddress" value="" class="reginput" maxlength="20">
-              </td>
-            </tr>
-            <input type="hidden" name="ptd[]" value="rgfax">                        <tr>
-              <td width="25%" align="right">车牌号码：</td>
-              <td><input type="text" name="rgfax" value="" class="reginput" maxlength="20">
-              </td>
-            </tr>
-
-            <tr>
-              <td width="25%" align="right" style="height:50px;line-height:50px"></td>
-              <td style="height:50px;line-height:50px" align="left"><input type="submit" value="修改" class="reg_button" style="margin:0px;"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
     </div>
   </div>
 </template>
 <script>
-//Message功能-提示框，本网页中为黄色警告框。[刘]
-//  import Message from 'vue-bulma-message'
+  import auth from 'src/js/auth.js'
+  import util from 'src/js/util'
   export default {
       name:'Index',
   //注册组件：Message方便使用
@@ -85,54 +67,54 @@
     },
     data () {
       return {
-        data: [300, 50, 100,50],
-        totalDoctorCount:0,
-        balanceDate:1,
-        //如果没有读取到数据，直接默认为0[刘]
-        Num:{
-          userNum: 0,
-          newUserNum: 0,
-          newDoctorNum: 0,
-          doctorNum: 0,
-        },
-        user:{
-            name:'徐士学',
-            account:"cbxsx74102",
-            level:'普通会员',
-            createdTime:'2017-02-25',
-            activeTime:'2017-02-25',
-            referrer:''
-        }
+        user:auth.getUser()
       }
     },
-//    computed: {
-//        monthClosingHint:function () {
-//            let balanceDate = this.balanceDate
-//            return `结算日期已设定为本月${balanceDate}号,请及时操作!`
-//        }
-//    },
-//    //进入页面便开始通过create方法得到接口链接numsUrl[刘]
-//    created:function () {
-//      let that            = this
-//      var numsUrl         = V.debugUrl+'statisticsAdmin/userAndDoctorCount';
-//      var numReqData      = {
-//        pageSize:30
-//      };
-//      //链接接口，如果返回SUCCEED，就得到res.body.date内容，赋值给Num[刘]
-//      this.$http.get(numsUrl,{params:numReqData}).then(function (res) {
-//        if(res.body.status == "SUCCEED") {
-//          this.Num = res.body.data;
-//        }
-//      });
-//      //得到结算日期中值[刘]
-//      var closingHintUrl = V.debugUrl+'systemSettingAdmin/queryMonthClosingHintSetting';
-//
-//      this.$http.get(closingHintUrl).then(function (res) {
-//          if(res.body.status == "SUCCEED") {
-//              that.balanceDate = res.body.data.value;
-//          }
-//      });
-//    },
+    methods:{
+          doSave(){
+              let that        = this
+              let url         = Vue.debugUrl + '/user/updateInfo'
+
+              var reqData     = {
+
+
+              }
+
+              Object.assign(reqData,that.user)
+              reqData.createTime = null
+              reqData.createTime = null
+              util.dataClear(reqData)
+
+              that.$http.post(url,reqData).then(function (res) {
+                  if(res.body.msg == "ok") {
+                      that.user = res.body.data
+                      auth.setUser(res.body.data)
+                      this.$notify({
+                          title: '成功',
+                          message: '更新成功',
+                          type: 'success'
+                      });
+                  }
+              });
+          }
+    },
+    ready:function () {
+        let that        = this
+        let url         = Vue.debugUrl + '/user/userInfo'
+
+        var reqData     = { }
+
+        Object.assign(reqData,that.user)
+
+        util.dataClear(reqData)
+
+        that.$http.post(url,reqData).then(function (res) {
+            if(res.body.msg == "ok") {
+                that.user = res.body.data
+                auth.setUser(res.body.data)
+            }
+        });
+    }
   }
 </script>
 

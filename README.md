@@ -11,6 +11,10 @@
 #### layout布局
 ![alt text]( http://cdn.2mmr.com/vue-admin/layout.jpg "运行效果")
 
+#### layout布局
+![alt text]( http://cdn.2mmr.com/vue-admin/login.png "运行效果")
+
+
 ## 目录
 * 1.[第一步搭建环境](#Install)
     * [安装vue环境](./doc/1/vue.md)
