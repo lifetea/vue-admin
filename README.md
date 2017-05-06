@@ -11,7 +11,7 @@
 #### layout布局
 ![alt text]( http://cdn.2mmr.com/vue-admin/layout.jpg "运行效果")
 
-#### layout布局
+#### 登录页面
 ![alt text]( http://cdn.2mmr.com/vue-admin/login.png "运行效果")
 
 
