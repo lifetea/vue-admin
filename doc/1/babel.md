@@ -2,13 +2,16 @@
     npm i --save-dev babel-cli babel-core
 
 #### 转换es2015
+
     npm i --save-dev babel-preset-es2015 babel-preset-es2015-loose
 
 #### 兼容es3
+
     npm i --save-dev babel-plugin-transform-es2015-modules-commonjs  babel-plugin-transform-es3-member-expression-literals babel-plugin-transform-es3-property-literals
 
 
 #### 在webpack中使用babel
+
       module: {
           loaders: [
               {
@@ -20,6 +23,7 @@
       },
       
 #### 配置babel 在根目录中创建.babelrc
+
     {
       "presets" : [ ["es2015", {"loose": true}] ],
       "plugins" : [
@@ -28,7 +32,9 @@
         "transform-es2015-modules-commonjs"
       ]
     }
+    
 ### 配置 babel-polyfill
+
 
     作用:
         Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。
