@@ -132,14 +132,14 @@ export let list = [
             {
                 name:"发件箱",
                 index:'6-2',
-                path:'user-bank',
-                component: lazyLoading('Pages/User/Bank'),
+                path:'email-send',
+                component: lazyLoading('Pages/Email/SendBox'),
             },
             {
                 name:"收件箱",
                 index:'6-3',
                 path:'user-bank',
-                component: lazyLoading('Pages/User/Bank'),
+                component: lazyLoading('Pages/Email/SendBox'),
             },
             {
                 name:"新闻公告",
@@ -157,14 +157,14 @@ export let list = [
             {
                 name:"密码修改",
                 index:'7-1',
-                path:'user-info',
-                component: lazyLoading('Pages/User/Info'),
+                path:'user-pwd',
+                component: lazyLoading('Pages/User/Pwd'),
             },
             {
                 name:"密保修改",
-                index:'6-2',
-                path:'user-bank',
-                component: lazyLoading('Pages/User/Bank'),
+                index:'7-2',
+                path:'user-safe',
+                component: lazyLoading('Pages/User/Save'),
             }
         ]
     }

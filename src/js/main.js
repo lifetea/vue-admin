@@ -5,7 +5,7 @@
 
 Vue                     =    require('Vue')
 
-import Main             from '../view/Main.vue'
+import Main               from '../view/Main.vue'
 
 import {router}           from './router'
 
@@ -15,17 +15,30 @@ import {router}           from './router'
 // import store            from  '../vuex/store'
 //
 
+
+
 Vue.debugUrl = "/admin"
 
 //filter
-System.import('./filter.js')
+
+require.ensure([], () => {
+    require('./filter.js');
+    // require('./b');
+}, '');
+// import filter  from  './filter.js'
+
+// System.import('./filter.js')
 
 // sync(store, router)
 
+import vueResource  from 'vue-resource'
+Vue.use(vueResource)
+Vue.http.options.emulateJSON = true;
+
 //网络请求
-System.import('vue-resource').then(function(resource) {
-    Vue.use(resource)
-    Vue.http.options.emulateJSON = true;
+// System.import('vue-resource').then(function(resource) {
+    // Vue.use(resource)
+    // Vue.http.options.emulateJSON = true;
     // session 失效跳转
     // Vue.http.interceptors.push((request, next) => {
     //     next((response) => {
@@ -34,7 +47,7 @@ System.import('vue-resource').then(function(resource) {
     //         }
     //     });
     // });
-});
+// });
 
 //初始化APP
 var app = new Vue({

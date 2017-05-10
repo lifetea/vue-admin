@@ -41,6 +41,10 @@
                     <i-button type="text" @click.native="toggleClick">
                         <Icon type="navicon" size="32"></Icon>
                     </i-button>
+                    <div class="fr nav_fr pull-right">
+                        <span>尊敬的会员：cbxsx7410</span>
+                        <a href="index.php?u=out" onclick="return confirm('您确定要退出吗')">安全退出</a>
+                    </div>
                 </div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>

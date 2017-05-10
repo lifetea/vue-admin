@@ -17,7 +17,6 @@ let dataClear = function (obj) {
     for (var a in obj){
         if(obj[a] === null || obj[a] === '' )
             delete obj[""+a]
-
     }
 }
 
@@ -25,6 +24,26 @@ let dataClear = function (obj) {
 //
 // console.log(reqData)
 
+
+let dataReset = function (obj) {
+    for (var a in obj){
+        obj[a] = null
+    }
+}
+
+
+let getFile = function (response,fileName) {
+    var headers             = response.headers;
+    var blob                = new Blob([response.data],{type:headers['content-type']});
+    var link                = document.createElement('a');
+    link.href               = window.URL.createObjectURL(blob);
+    link.download           = fileName;
+    link.click();
+}
+
+
 export default {
-    dataClear:dataClear
+    dataClear:dataClear,
+    dataReset:dataReset,
+    getFile:getFile
 }

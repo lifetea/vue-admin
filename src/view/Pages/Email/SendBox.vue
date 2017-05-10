@@ -15,19 +15,23 @@
               width="180">
       </el-table-column>
       <el-table-column
-              prop="bankName"
-              label="银行名称"
+              prop="receiveId"
+              label="收件人"
               width="180">
       </el-table-column>
       <el-table-column
-              prop="nickName"
-              label="开户行">
+              prop="title"
+              label="标题">
       </el-table-column>
       <el-table-column
-              label="创建日期">
+              label="时间">
         <template scope="scope">
           <span>{{ scope.row.createTime | dateFormat }}</span>
         </template>
+      </el-table-column>
+      <el-table-column
+              prop="status"
+              label="状态">
       </el-table-column>
       <el-table-column
               label="操作">
@@ -85,7 +89,7 @@
           },
           doAdd(){
               let that        = this
-              let url         = Vue.debugUrl + '/bank/add'
+              let url         = Vue.debugUrl + '/email/sendList'
 
               var reqData     = {
                   userId:auth.getUser().id
@@ -110,7 +114,7 @@
     },
       created:function () {
         let that        = this
-        let url         = Vue.debugUrl + '/bank/list'
+        let url         = Vue.debugUrl + '/email/sendList'
 
         var reqData     = { }
 
