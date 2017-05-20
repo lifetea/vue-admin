@@ -1,0 +1,98 @@
+<div class="trade-list-hd clearfix">
+    <div class="col-w100">类别</div>
+    <div class="col-w100">时间</div>
+    <div class="col-w140">项目</div>
+    <div class="col-w140">单号</div>
+    <div class="col-w120">金额（元）</div>
+    <div class="col-w120">状态</div>
+    <div class="col-w100">投标类型</div>
+    </div>
+		<div class="trade-list-detail clearfix">
+	  <div class="col1">投资</div>
+	  <div class="col2">2017/05/18<br><em class="c9">17:05:00</em></div>
+	  <div class="col3" title="WL072017051816">WL072017051816</div>
+	  <div class="col6">11008010000002584</div>
+	  <div class="col7 c_green fwb">10,000.00</div>
+	  <div class="col6">订单关闭</div>
+	  <div class="col7 ">
+							<span class="icon-delay shoudong"></span>
+			
+	  </div>
+	  	    	      	      	      	    	  	</div>
+		<div class="trade-list-detail clearfix">
+	  <div class="col1">线下充值</div>
+	  <div class="col2">2017/05/18<br><em class="c9">06:00:26</em></div>
+	  <div class="col3" title="线下充值">线下充值</div>
+	  <div class="col6">55008120000001639</div>
+	  <div class="col7 c_green fwb">10.00</div>
+	  <div class="col6">支付成功</div>
+	  <div class="col7 ">
+			
+	  </div>
+	  	    	      	      	      	    	  	</div>
+		<div class="trade-list-detail clearfix">
+	  <div class="col1">线下充值</div>
+	  <div class="col2">2017/05/11<br><em class="c9">06:00:08</em></div>
+	  <div class="col3" title="线下充值">线下充值</div>
+	  <div class="col6">55008120000001373</div>
+	  <div class="col7 c_green fwb">4,000.00</div>
+	  <div class="col6">支付成功</div>
+	  <div class="col7 ">
+			
+	  </div>
+	  	    	      	      	      	    	  	</div>
+		<div class="trade-list-detail clearfix">
+	  <div class="col1">线下充值</div>
+	  <div class="col2">2017/05/11<br><em class="c9">06:00:08</em></div>
+	  <div class="col3" title="线下充值">线下充值</div>
+	  <div class="col6">55008120000001372</div>
+	  <div class="col7 c_green fwb">50,000.00</div>
+	  <div class="col6">支付成功</div>
+	  <div class="col7 ">
+			
+	  </div>
+	  	    	      	      	      	    	  	</div>
+		<div class="trade-list-detail clearfix">
+	  <div class="col1">投资</div>
+	  <div class="col2">2017/05/10<br><em class="c9">11:49:52</em></div>
+	  <div class="col3" title="WL022017051003">WL022017051003</div>
+	  <div class="col6">13008010000002311</div>
+	  <div class="col7 c_green fwb">40,000.00</div>
+	  <div class="col6">支付成功</div>
+	  <div class="col7 ">
+							<span class="icon-delay shoudong"></span>
+			
+	  </div>
+	  	    	      	      	      	    	  	</div>
+	<!--翻页DOM开始-->
+<!--当前页类 current-->
+	<p class="flip-words">
+	        共<em>25</em>页，到第<input type="text" class="num" id="toPageIndex"/>页
+	        <input value="确定" type="button" class="flip-btn-confirm" id="toPageBtn"/>
+	</p>
+	<ul class="clearfix flip-contain">
+	  <li onclick="getPageRecords(1)">&lt;&lt;</li>
+	    	    		    	    <li class="current">1</li>
+	    		    	    		    	    <li onclick="getPageRecords(2)">2</li>
+	    		    	    		    	    <li onclick="getPageRecords(3)">3</li>
+	    		    	    		    	    <li onclick="getPageRecords(4)">4</li>
+	    		    	    		    	    <li onclick="getPageRecords(5)">5</li>
+	    		    	    		    	    <li>...</li>
+	    		    	    		    	    <li onclick="getPageRecords(23)">23</li>
+	    		    	    		    	    <li onclick="getPageRecords(24)">24</li>
+	    		    	    		    	    <li onclick="getPageRecords(25)">25</li>
+	    		    	    <li onclick="getPageRecords(25)">&gt;&gt;</li>
+	</ul>
+<!--翻页DOM结束-->
+<script type="text/javascript">
+	$("#toPageBtn").click(function(){
+	    var pageIndex = parseInt($("#toPageIndex").val());
+	    var pageCount = '25' =='' ? 0:parseInt('25');   
+	    if(!/^[1-9]\d*$/.test(pageIndex)||pageIndex > pageCount ){
+            $("#toPageIndex").addClass("border_red");
+            return false;
+        }
+	 	getPageRecords(pageIndex); 
+	});
+	
+</script>

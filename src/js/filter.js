@@ -53,14 +53,12 @@ Vue.filter('mgrNameFormat', function (value) {
 // 状态 0：已处理、1：已失败、2：处理中
 
 
-Vue.filter('creditCheckStatus', function (value) {
+Vue.filter('emailStatusFormat', function (value) {
     let res = ''
     if(value == 0)
-        res = '已处理'
-    if(value == 2)
-        res = '处理中'
+        res = '未读'
     if(value == 1)
-        res = '已失败'
+        res = '已读'
     return res
 })
 

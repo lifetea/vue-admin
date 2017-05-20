@@ -1,10 +1,10 @@
 <template>
   <div class="bg_w">
-    <el-form>
-      <el-form-item>
-        <el-button type="primary"  class="pull-right" @click.native="bankVisible = true" icon="plus">添加</el-button>
-      </el-form-item>
-    </el-form>
+    <!--<el-form>-->
+      <!--<el-form-item>-->
+        <!--<el-button type="primary"  class="pull-right" @click.native="bankVisible = true" icon="plus">添加</el-button>-->
+      <!--</el-form-item>-->
+    <!--</el-form>-->
 
     <el-table
             :data="list"
@@ -32,33 +32,38 @@
       <el-table-column
               prop="status"
               label="状态">
+        <template scope="scope">
+          <span>{{ scope.row.status | emailStatusFormat }}</span>
+        </template>
       </el-table-column>
       <el-table-column
               label="操作">
         <template scope="scope">
-          <span>{{ scope.row.createTime | dateFormat }}</span>
+          <a @click="doDetail(scope.row)" href="javascript:(0)">查看</a>
         </template>
       </el-table-column>
     </el-table>
-
-    <el-dialog title="添加银行卡" :visible.sync="bankVisible" size="tiny" label-width="100px">
+    <div class="footer-box">
+      <span v-if="startRow" class="pull-left">显示{{startRow}}-{{endRow}} 总共有{{total}}条目</span>
+      <div class="pagination pull-right">
+        <el-pagination
+                layout="prev, pager, next"
+                @current-change="handleCurrentChange"
+                :page-size="pageSize"
+                :total="total">
+        </el-pagination>
+      </div>
+    </div>
+    <el-dialog :title="detail.title" :visible.sync="bankVisible">
       <el-form :model="bank">
-        <el-form-item label="银行名称">
-          <el-select v-model="bank.bankName" placeholder="请选择银行">
-            <el-option  label="请选择银行" value="null"></el-option>
-            <el-option  label="中国工商银行" value="中国工商银行"></el-option>
-            <el-option  label="中国农业银行" value="中国农业银行"></el-option>
-            <el-option  label="中国建设银行" value="中国建设银行"></el-option>
-          </el-select>
+        <el-form-item>
+          <p>{{detail.content}}</p>
         </el-form-item>
-        <el-form-item lable="银行卡号">
-          <el-input v-model="bank.cardNo" placeholder="请输入银行卡号"></el-input>
-        </el-form-item>
-        <el-form-item lable="开户行">
-          <el-input v-model="bank.nickName" placeholder="请输入开户行"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input type="textarea" v-model="bank.remark" placeholder="备注"></el-input>
+        <!--<el-form-item lable="开户行">-->
+        <!--<el-input v-model="bank.nickName" placeholder="请输入开户行"></el-input>-->
+        <!--</el-form-item>-->
+        <el-form-item label="回复">
+          <el-input type="textarea" v-model="bank.remark" placeholder="回复"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -80,6 +85,10 @@
             bankName:null,
           },
           bankVisible:false,
+          pageNum:1,
+          detail:{
+
+          }
       }
     },
     methods:{
@@ -110,13 +119,44 @@
                       that.bankVisible = false
                   }
               });
+          },
+          handleCurrentChange(val) {
+              this.pageNum = val
+              this.doSearch()
+          },
+          doSearch(){
+              let that        = this
+              let url         = Vue.debugUrl + '/email/sendList'
+
+              var reqData     = {
+                  pageSize:10,
+                  pageNum:that.pageNum
+              }
+
+              that.$http && that.$http.post(url,reqData).then(function (res) {
+                  if(res.body.msg == "ok") {
+                      let data            = res.body.data
+                      Object.assign(that,data)
+                  }
+              });
+          },
+          doDetail(item){
+              let that          = this
+              that.bankVisible  = true
+              Object.assign(that.detail,item)
+              if(item.status == 0){
+                  that.doView(item)
+              }
           }
     },
       created:function () {
         let that        = this
         let url         = Vue.debugUrl + '/email/sendList'
 
-        var reqData     = { }
+        var reqData     = {
+            pageSize:10,
+            pageNum:that.pageNum
+        }
 
         that.$http && that.$http.post(url,reqData).then(function (res) {
             if(res.body.msg == "ok") {

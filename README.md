@@ -14,6 +14,9 @@
 #### 登录页面
 ![alt text]( http://cdn.2mmr.com/vue-admin/login.png "运行效果")
 
+#### 新闻页面(富文本)
+![alt text]( http://cdn.2mmr.com/vue-admin/news.jpeg "运行效果")
+
 
 ## 目录
 * 1.[第一步搭建环境](#Install)

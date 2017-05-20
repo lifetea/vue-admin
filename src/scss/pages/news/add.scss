@@ -1,0 +1,40 @@
+.bg_w {
+  background: white;
+  padding: 15px;
+}
+.in_news ul li {
+  border: 1px solid #DDD;
+  height: 38px;
+  line-height: 38px;
+  margin-bottom: 15px;
+}
+.in_news ul li .hint {
+  float: left;
+  margin: 0px 15px;
+  color: #FE9802;
+}
+.in_news ul li .time {
+  float: right;
+  margin-right: 15px;
+  color: #666;
+  font-size: 12px;
+}
+
+.user-info{
+  .wrap{
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    color: #666;
+  }
+}
+
+.ql-container .ql-editor {
+  min-height: 20em;
+  padding-bottom: 1em;
+  max-height: 25em;
+}
+
+.news-type .el-select{
+  width: 100%;
+}

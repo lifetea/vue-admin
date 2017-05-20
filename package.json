@@ -18,7 +18,8 @@
   "homepage": "https://github.com/lifetea/vue-insurance#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "vue": "^2.3.0"
+    "vue": "^2.3.0",
+    "vue-quill-editor": "^2.2.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",
