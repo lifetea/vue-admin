@@ -1,48 +1,22 @@
 <template>
-  <div class="bg_w">
+  <div class="new-list">
     <!--<el-form>-->
       <!--<el-form-item>-->
         <!--<el-button type="primary"  class="pull-right" @click.native="bankVisible = true" icon="plus">添加</el-button>-->
       <!--</el-form-item>-->
     <!--</el-form>-->
+    <ul class="list">
+      <template v-for="item in list">
+        <li>
+          <span class="hint">[{{ item.type | newsTypeFormat}}]</span>
+          <!--<a href="http://www.bjcmh999.com/home.php?yim=newsview&amp;veid=40">{{item.title}}</a>-->
+          <router-link :to="{ path: 'news-detail', query: { newsId: item.id }}">{{item.title}}</router-link>
+          <span class="time">{{ item.createTime | dateFormat }}</span>
+        </li>
+      </template>
 
-    <el-table
-            :data="list"
-            style="width: 100%">
-      <el-table-column
-              prop="id"
-              label="序号"
-              width="180">
-      </el-table-column>
-      <el-table-column
-              prop="sendId"
-              label="发件人"
-              width="180">
-      </el-table-column>
-      <el-table-column
-              prop="title"
-              label="标题">
-      </el-table-column>
-      <el-table-column
-              label="时间">
-        <template scope="scope">
-          <span>{{ scope.row.createTime | dateFormat }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-              prop="status"
-              label="状态">
-        <template scope="scope">
-          <span>{{ scope.row.status | emailStatusFormat }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-              label="操作">
-        <template scope="scope">
-          <a @click="doDetail(scope.row)" href="javascript:(0)">查看</a>
-        </template>
-      </el-table-column>
-    </el-table>
+    </ul>
+
     <div class="footer-box">
       <span v-if="startRow" class="pull-left">显示{{startRow}}-{{endRow}} 总共有{{total}}条目</span>
       <div class="pagination pull-right">
@@ -98,10 +72,10 @@
           },
           doAdd(){
               let that        = this
-              let url         = Vue.debugUrl + '/email/inList'
+              let url         = Vue.debugUrl + '/news/list'
 
               var reqData     = {
-                  receiveId:auth.getUser().id
+                  pageNum:that.pageNum
               }
               Object.assign(reqData,that.bank)
 
@@ -126,10 +100,9 @@
           },
           doSearch(){
               let that        = this
-              let url         = Vue.debugUrl + '/email/inList'
+              let url         = Vue.debugUrl + '/news/list'
 
               var reqData     = {
-                  receiveId:auth.getUser().id,
                   pageSize:10,
                   pageNum:that.pageNum
               }
@@ -167,12 +140,12 @@
     },
       created:function () {
         let that        = this
-        let url         = Vue.debugUrl + '/email/inList'
+        let url         = Vue.debugUrl + '/news/list'
 
         console.log(auth.getUser().id)
 
         var reqData     = {
-            receiveId:auth.getUser().id,
+            status:"1",
             pageSize:10,
             pageNum:that.pageNum
         }
@@ -188,5 +161,5 @@
 </script>
 
 <style lang="scss">
-    @import "src/scss/pages/user/bank.scss";
+    @import "src/scss/pages/news/list.scss";
 </style>

@@ -1,167 +1,127 @@
 <template>
-  <div class="bg_w">
-    <!--<el-form>-->
-      <!--<el-form-item>-->
-        <!--<el-button type="primary"  class="pull-right" @click.native="bankVisible = true" icon="plus">添加</el-button>-->
-      <!--</el-form-item>-->
-    <!--</el-form>-->
-
-    <el-table
-            :data="list"
-            style="width: 100%">
-      <el-table-column
-              prop="id"
-              label="序号"
-              width="180">
-      </el-table-column>
-      <el-table-column
-              prop="receiveId"
-              label="收件人"
-              width="180">
-      </el-table-column>
-      <el-table-column
-              prop="title"
-              label="标题">
-      </el-table-column>
-      <el-table-column
-              label="时间">
-        <template scope="scope">
-          <span>{{ scope.row.createTime | dateFormat }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-              prop="status"
-              label="状态">
-        <template scope="scope">
-          <span>{{ scope.row.status | emailStatusFormat }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-              label="操作">
-        <template scope="scope">
-          <a @click="doDetail(scope.row)" href="javascript:(0)">查看</a>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div class="footer-box">
-      <span v-if="startRow" class="pull-left">显示{{startRow}}-{{endRow}} 总共有{{total}}条目</span>
-      <div class="pagination pull-right">
-        <el-pagination
-                layout="prev, pager, next"
-                @current-change="handleCurrentChange"
-                :page-size="pageSize"
-                :total="total">
-        </el-pagination>
-      </div>
-    </div>
-    <el-dialog :title="detail.title" :visible.sync="bankVisible">
-      <el-form :model="bank">
-        <el-form-item>
-          <p>{{detail.content}}</p>
+  <div class="user-info bg_w">
+    <div class="wrap">
+      <el-form :model="email" label-width="100px" class="demo-ruleForm">
+               <!--:rules="rules" -->
+               <!--ref="ruleForm" -->
+        <el-form-item label="类型" class="news-type">
+          <el-select v-model="news.type" placeholder="请选择">
+            <el-option  label="请选择" value="null"></el-option>
+            <el-option  label="公告" value="1"></el-option>
+            <el-option  label="活动" value="2"></el-option>
+            <!--<el-option-->
+                    <!--v-for="item in options"-->
+                    <!--:key="item.value"-->
+                    <!--:label="item.label"-->
+                    <!--:value="item.value">-->
+            <!--</el-option>-->
+          </el-select>
         </el-form-item>
-        <!--<el-form-item lable="开户行">-->
-        <!--<el-input v-model="bank.nickName" placeholder="请输入开户行"></el-input>-->
-        <!--</el-form-item>-->
-        <el-form-item label="回复">
-          <el-input type="textarea" v-model="bank.remark" placeholder="回复"></el-input>
+        <el-form-item label="标题">
+          <el-input v-model="news.title" placeholder="请输入标题"></el-input>
+        </el-form-item>
+
+        <el-form-item label="内容">
+          <quill-editor ref="myTextEditor"
+                        v-model="news.content"
+                        :config="editorOption"
+                        @blur="onEditorBlur($event)"
+                        @focus="onEditorFocus($event)"
+                        @ready="onEditorReady($event)"
+          >
+          </quill-editor>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click.native="doSave">提交</el-button>
+          <!--<el-button @click="resetForm('ruleForm2')">重置</el-button>-->
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click.native="bankVisible = false">取 消</el-button>
-        <el-button type="primary" @click.native="doAdd">添 加</el-button>
-      </div>
-    </el-dialog>
+    </div>
   </div>
 </template>
 <script>
-  import util from "src/js/util"
-  import auth from "src/js/auth"
+  import auth from 'src/js/auth.js'
+  import util from 'src/js/util'
+  import { quillEditor } from 'vue-quill-editor'
   export default {
-    name:'Index',
+      name:'Index',
+  //注册组件：Message方便使用
+    components: {
+        'quillEditor':quillEditor
+//        Message
+    },
     data () {
       return {
-          list:[],
-          bank:{
-            bankName:null,
-          },
-          bankVisible:false,
-          pageNum:1,
-          detail:{
-
-          }
+        news:{
+            content:"",
+            type:null
+        },
+        editorOption: {
+            theme: 'snow',
+            placeholder: "输入任何内容，支持html",
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'align': [] }],
+                    ['link', 'image','video'],
+                    ['clean']
+                ]
+            }
+        }
       }
     },
     methods:{
-          showDialog(){
-              this.bankVisible = true
-              console.log("hh",this.bankVisible)
-          },
-          doAdd(){
-              let that        = this
-              let url         = Vue.debugUrl + '/email/sendList'
+        onEditorBlur(editor) {
+            console.log('editor blur!', editor)
+        },
+        onEditorFocus(editor) {
+            console.log('editor focus!', editor)
+        },
+        onEditorReady(editor) {
+            console.log('editor ready!', editor)
+        },
+        onEditorChange({ editor, html, text }) {
+            // console.log('editor change!', editor, html, text)
+            this.content = html
+        },
+        doSave(){
+            let that        = this
+            let url         = Vue.debugUrl + '/news/update'
+            var reqData     = {
+                userId:auth.getUser().id,
+            }
 
-              var reqData     = {
-                  userId:auth.getUser().id
-              }
-              Object.assign(reqData,that.bank)
+            Object.assign(reqData,that.news)
+            util.dataClear(reqData)
 
-              util.dataClear(reqData)
-
-
-              that.$http.post(url,reqData).then(function (res) {
-                  if(res.body.msg == "ok") {
-                      that.list.push(res.body.data)
-                      this.$notify({
-                          title: '成功',
-                          message: '添加成功',
-                          type: 'success'
-                      });
-                      that.bankVisible = false
-                  }
-              });
-          },
-          handleCurrentChange(val) {
-              this.pageNum = val
-              this.doSearch()
-          },
-          doSearch(){
-              let that        = this
-              let url         = Vue.debugUrl + '/email/sendList'
-
-              var reqData     = {
-                  pageSize:10,
-                  pageNum:that.pageNum
-              }
-
-              that.$http && that.$http.post(url,reqData).then(function (res) {
-                  if(res.body.msg == "ok") {
-                      let data            = res.body.data
-                      Object.assign(that,data)
-                  }
-              });
-          },
-          doDetail(item){
-              let that          = this
-              that.bankVisible  = true
-              Object.assign(that.detail,item)
-              if(item.status == 0){
-                  that.doView(item)
-              }
-          }
+            that.$http.post(url,reqData).then(function (res) {
+                if(res.body.msg == "ok") {
+                    this.$notify({
+                        title: '成功',
+                        message: '添加成功',
+                        type: 'success'
+                    });
+                    util.dataReset(that.news)
+                }
+            });
+        }
     },
-      created:function () {
+    created:function () {
         let that        = this
-        let url         = Vue.debugUrl + '/email/sendList'
+        let newsId      = this.$route.query.newsId
+        let url         = Vue.debugUrl + '/news/detail'
+
 
         var reqData     = {
-            pageSize:10,
-            pageNum:that.pageNum
+            newsId:newsId
         }
 
         that.$http && that.$http.post(url,reqData).then(function (res) {
             if(res.body.msg == "ok") {
-                let data            = res.body.data
-                Object.assign(that,data)
+                that.news            = res.body.data
             }
         });
     }
@@ -169,5 +129,5 @@
 </script>
 
 <style lang="scss">
-    @import "src/scss/pages/user/bank.scss";
+    @import "src/scss/pages/news/add.scss";
 </style>

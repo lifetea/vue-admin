@@ -1,0 +1,33 @@
+.home_news{
+  margin-top: 30px;
+  padding: 0 30px;
+  .home_news_padd {
+    padding-right: 30px;
+  }
+  .bg_w {
+    background: white;
+    .pxzx_tit {
+      border-bottom: 1px solid #ddd;
+      height: 50px;
+      line-height: 50px;
+      color: black;
+      font-size: 16px;
+      overflow: hidden;
+    }
+    .pxzx_fbr {
+      overflow: hidden;
+      color: #aaa;
+      margin: 10px 0;
+    }
+
+    .pxzx_con {
+      line-height: 30px;
+      color: #333;
+      font-size: 14px;
+      text-indent: 2em;
+    }
+
+  }
+
+
+}

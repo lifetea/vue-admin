@@ -62,3 +62,26 @@ gulp.task("qi-niu",function () {
         }))
 })
 
+
+
+//移动文件到src
+// move
+gulp.task('move-src', function() {
+    return gulp.src(
+        [
+            './node_modules/element-ui/lib/theme-default/index.css',
+            './node_modules/element-ui/lib/theme-default/fonts/*',
+            './node_modules/element-ui/lib/index.js',
+            './node_modules/vue/dist/*',
+            './node_modules/iview/dist/**/**/*',
+            './node_modules/moment/locale//*',
+            './node_modules/moment/min/*',
+            './node_modules/font-awesome/css/*',
+            './node_modules/font-awesome/fonts/*',
+            './node_modules/accounting/*accounting*.js',
+        ], { //./node_modules/ivew/*
+            base: './node_modules'   //如果设置为 base: 'js' 将只会复制 js目录下文件, 其他文件会忽略
+        }
+    ).pipe(gulp.dest('./src/lib/'));
+});
+

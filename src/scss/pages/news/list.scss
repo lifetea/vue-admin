@@ -1,0 +1,27 @@
+.new-list{
+  padding: 1rem;
+  .list{
+    font-size: 14px;
+    li {
+      border: 1px solid #DDD;
+      height: 38px;
+      line-height: 38px;
+      margin-bottom: 15px;
+    }
+
+    li .hint {
+      float: left;
+      margin: 0px 15px;
+      color: #FE9802;
+    }
+
+    li .time {
+      float: right;
+      margin-right: 15px;
+      color: #666;
+      font-size: 12px;
+    }
+  }
+
+}
+

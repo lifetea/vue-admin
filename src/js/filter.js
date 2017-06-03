@@ -47,7 +47,18 @@ Vue.filter('mgrNameFormat', function (value) {
     return res
 })
 
+//新闻类型转换
 
+Vue.filter('newsTypeFormat', function (value) {
+    let res = ''
+    if(value == 0)
+        res = '未读'
+    if(value == 1)
+        res = '公告'
+    if(value == 2)
+        res = '活动'
+    return res
+})
 
 
 // 状态 0：已处理、1：已失败、2：处理中

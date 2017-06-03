@@ -8,6 +8,7 @@
           <el-select v-model="news.type" placeholder="请选择">
             <el-option  label="请选择" value="null"></el-option>
             <el-option  label="公告" value="1"></el-option>
+            <el-option  label="活动" value="2"></el-option>
             <!--<el-option-->
                     <!--v-for="item in options"-->
                     <!--:key="item.value"-->
@@ -100,7 +101,7 @@
                 if(res.body.msg == "ok") {
                     this.$notify({
                         title: '成功',
-                        message: '发送成功',
+                        message: '添加成功',
                         type: 'success'
                     });
                     util.dataReset(that.news)

@@ -44,8 +44,10 @@
   color: #9ea7b4;
 }
 .layout-menu-left{
-  background: #464c5b;
   height: 100%\0;
+  &>ul{
+    height: 100%;
+  }
 }
 .layout-header{
   height: 60px;
@@ -62,9 +64,19 @@
 .layout-ceiling-main a{
   color: #9ba7b5;
 }
-.layout-hide-text .layout-text{
-  display: none;
+.layout-hide-text{
+  .layout-text{
+    display: none;
+  }
+  .ivu-menu-vertical{
+    .ivu-menu-submenu{
+      .ivu-menu-item{
+        padding-left: 0;
+      }
+    }
+  }
 }
+
 .ivu-col{
   transition: width .2s ease-in-out;
 }

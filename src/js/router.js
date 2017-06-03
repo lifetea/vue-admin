@@ -156,8 +156,14 @@ export let list = [
             {
                 name:"新闻编辑",
                 index:'6-6',
-                path:'news-add',
+                path:'news-edit',
                 component: lazyLoading('Pages/News/Edit'),
+            },
+            {
+                name:"新闻详情",
+                index:'6-7',
+                path:'news-detail',
+                component: lazyLoading('Pages/News/Detail'),
             },
         ]
     },

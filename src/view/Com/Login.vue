@@ -1,36 +1,41 @@
 <template>
     <div class="login-wrap">
-        <div class="ms-title">某系统</div>
-        <div class="ms-login">
-            <el-form :model="user" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-                <el-form-item prop="account">
-                    <el-input v-model="user.account" placeholder="帐号"></el-input>
-                </el-form-item>
+        <div class="login-box">
+            <div class="ms-title">
+                <!--<img class="icon" src="src/img/icon.png">-->
+                <span>汽车保险</span>
+            </div>
+            <div class="ms-login">
+                <el-form :model="user" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+                    <el-form-item prop="account">
+                        <el-input v-model="user.account" placeholder="帐号"></el-input>
+                    </el-form-item>
 
-                <el-form-item prop="password">
-                    <el-input type="password" placeholder="密码" v-model="user.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-col :span="14">
-                        <el-input v-model="user.mobile" placeholder="手机"></el-input>
-                    </el-col>
-                    <el-col :span="8" :offset="2">
-                        <el-input type="password" placeholder="验证码"></el-input>
-                    </el-col>
-                </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input type="password" placeholder="密码" v-model="user.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-col :span="14">
+                            <el-input v-model="user.mobile" placeholder="手机"></el-input>
+                        </el-col>
+                        <el-col :span="8" :offset="2">
+                            <el-input type="password" placeholder="验证码"></el-input>
+                        </el-col>
+                    </el-form-item>
 
-                <div class="login-btn">
-                    <el-button v-if="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                    <el-button v-if="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
-                    <el-button v-if="action == 'find'" type="primary" @click="submitForm('ruleForm')">找回</el-button>
-                </div>
-                <p class="link-box">
-                    <a v-show="action != 'login'" class="pull-left" @click="doSwitch('login')" href="javascript:void(0)">登录</a>
-                    <a v-show="action != 'register'" class="pull-left" @click="doSwitch('register')" href="javascript:void(0)">注册</a>
-                    <a class="pull-right" @click="doSwitch('find')" href="javascript:void(0)">找回密码</a>
-                    <!--<a class="pull-right" @click="switch('find')" href="javascript:void(0)">找回密码</a>-->
-                </p>
-            </el-form>
+                    <div class="login-btn">
+                        <el-button v-if="action == 'login'" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                        <el-button v-if="action == 'register'" type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                        <el-button v-if="action == 'find'" type="primary" @click="submitForm('ruleForm')">找回</el-button>
+                    </div>
+                    <p class="link-box">
+                        <a v-show="action != 'login'" class="pull-left" @click="doSwitch('login')" href="javascript:void(0)">登录</a>
+                        <a v-show="action != 'register'" class="pull-left" @click="doSwitch('register')" href="javascript:void(0)">注册</a>
+                        <a class="pull-right" @click="doSwitch('find')" href="javascript:void(0)">找回密码</a>
+                        <!--<a class="pull-right" @click="switch('find')" href="javascript:void(0)">找回密码</a>-->
+                    </p>
+                </el-form>
+            </div>
         </div>
     </div>
 </template>
@@ -98,9 +103,10 @@
                     if(res.body.msg == "ok") {
                         auth.login();
                         auth.setUser(res.body.data)
-                        console.log(res)
-                        console.log("登录成功")
+                        this.$message(res.body.msg);
                         that.$router.replace('/index');
+                    }else{
+                        this.$message.error(res.body.msg);
                     }
                 });
             },

@@ -1,8 +1,8 @@
 <template>
-    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+    <div class="layout" :class="{'layout-hide-text': spanLeft < 4}">
         <Row class="layout-wrp" type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
-                <Menu @on-select="menuSelected" active-name.sync="index" theme="dark" width="auto">
+                <Menu @on-select="menuSelected" active-name.sync="index" theme="light" width="auto">
                     <div class="layout-logo-left"></div>
                     <template v-for="menu in menus">
                         <Menu-item v-if="!menu.children" :name="menu.index">
@@ -97,8 +97,8 @@
         name:"Layout",
         data:function(){
             return{
-                spanLeft: 5,
-                spanRight: 19,
+                spanLeft: 4,
+                spanRight: 20,
                 menus:list,
                 lever:{
                     parent:"",
@@ -113,12 +113,12 @@
         },
         methods: {
             toggleClick () {
-                if (this.spanLeft === 5) {
+                if (this.spanLeft === 4) {
                     this.spanLeft = 2;
                     this.spanRight = 22;
                 } else {
-                    this.spanLeft = 5;
-                    this.spanRight = 19;
+                    this.spanLeft = 4;
+                    this.spanRight = 20;
                 }
             },
             menuSelected:function (val) {
