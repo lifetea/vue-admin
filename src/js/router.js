@@ -140,47 +140,62 @@ export let list = [
                 index:'6-3',
                 path:'email-in-box',
                 component: lazyLoading('Pages/Email/InBox'),
-            },
+            }
+        ]
+    },
+    {
+        icon:"ios-paper",
+        name:"新闻中心",
+        index:'7',
+        children:[
             {
                 name:"新闻公告",
-                index:'6-4',
+                index:'7-1',
                 path:'news-list',
                 component: lazyLoading('Pages/News/List'),
             },
             {
                 name:"新闻添加",
-                index:'6-5',
+                index:'7-2',
                 path:'news-add',
                 component: lazyLoading('Pages/News/Add'),
             },
             {
                 name:"新闻编辑",
-                index:'6-6',
+                index:'7-3',
                 path:'news-edit',
                 component: lazyLoading('Pages/News/Edit'),
+                hidden:true
             },
             {
                 name:"新闻详情",
-                index:'6-7',
+                index:'7-4',
                 path:'news-detail',
                 component: lazyLoading('Pages/News/Detail'),
+                hidden:true
+            },
+            {
+                name:"新闻管理",
+                index:'7-5',
+                path:'news-list',
+                component: lazyLoading('Pages/News/List'),
             },
         ]
     },
     {
         icon:"locked",
         name:"安全中心",
-        index:'7',
+        index:'8',
         children:[
             {
                 name:"密码修改",
-                index:'7-1',
+                index:'8-1',
                 path:'user-pwd',
                 component: lazyLoading('Pages/User/Pwd'),
             },
             {
                 name:"密保修改",
-                index:'7-2',
+                index:'8-2',
                 path:'user-safe',
                 component: lazyLoading('Pages/User/Save'),
             }

@@ -17,7 +17,7 @@
                                 <span class="layout-text">{{menu.name}}</span>
                             </template>
                             <template v-for="subMenu in menu.children">
-                                <Menu-item  :name="subMenu.index">
+                                <Menu-item v-if="subMenu.hidden != true"  :name="subMenu.index">
                                     <router-link class="link" :to="subMenu.path">
                                         <span class="link-text">{{subMenu.name}}</span>
                                     </router-link>

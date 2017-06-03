@@ -72,6 +72,9 @@
     .ivu-menu-submenu{
       .ivu-menu-item{
         padding-left: 0;
+        a.link {
+          padding-left: 43px;
+        }
       }
     }
   }
